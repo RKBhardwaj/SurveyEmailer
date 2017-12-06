@@ -1,3 +1,6 @@
+/**
+ * @description authRoutes file will contains all the routes and api routes
+ */
 const passport = require('passport');
 
 module.exports = (app) => {

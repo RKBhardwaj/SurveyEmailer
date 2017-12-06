@@ -6,12 +6,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reduxThunk from 'redux-thunk'; 
-//Gives direct access to dispatch function when we use reduxThunk as the middleware in the store. 
+import reduxThunk from 'redux-thunk';
+//Gives direct access to dispatch function when we use reduxThunk as the middleware in the store.
 //When any actions return function then it automatically the function inside in it call the dispatch method.
 
 import App from './components/App';
 import reducers from './reducers';
+
+//for development only
+import axios from 'axios';
+window.axios =  axios;
 
 //Creating store using createStore from redux
 /**

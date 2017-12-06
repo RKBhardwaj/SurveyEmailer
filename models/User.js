@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+/**
+ * @description User schema
+ */
 const userSchema = new Schema({
     googleId: String,
     credits: {

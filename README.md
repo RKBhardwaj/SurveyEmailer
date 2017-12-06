@@ -15,6 +15,7 @@
     1. Cookie Session - For handling cookie and session within the app. Cookie session will be used 
     1. Concurrently - As we have two server, first running on node (express) and second server is used for React Front end. We use Concurrenlty node package to run both the server concurrently.
     1. Body Parser - Body parser module is used to parse the incoming request to json object in the server.
+    1. Send grid - send grid is the mail provider
     
 2. Frontend
     2. axios - For handing ajax request on the front end side.

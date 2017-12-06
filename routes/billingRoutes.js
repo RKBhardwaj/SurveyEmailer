@@ -1,3 +1,7 @@
+/**
+ * @description Will maintain or handle the payments
+ */
+
 const keys = require('../config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 const requireLogin = require('../middlewares/requireLogin');
