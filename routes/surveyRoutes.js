@@ -14,6 +14,9 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Survey = mongoose.model('surveys');
 
 module.exports = (app) => {
+    /**
+     * @description api to get list of all the surveys for the current user
+     */
     app.get('/api/surveys', requireLogin, (req, res) => {
         Survey.find({_user: req.user.id})
             .select({recipients: false})
@@ -22,10 +25,38 @@ module.exports = (app) => {
             });
     });
 
+    /**
+     * @description api to delete survey
+     */
+    app.post('/api/deleteSurvey', requireLogin, (req, res) => {
+        const surveyId = req.body.surveyId;
+        if (surveyId) {
+            Survey.deleteOne({_id: surveyId}).then((response) => {
+                Survey.find({_user: req.user.id})
+                    .select({recipients: false})
+                    .then((surveys) => {
+                        res.send(surveys);
+                    });
+            });
+        } else {
+            Survey.find({_user: req.user.id})
+                .select({recipients: false})
+                .then((surveys) => {
+                    res.send(surveys);
+                });
+        }
+    });
+
+    /**
+     * @description api to show the thanks message when user click yes or no in the mail
+     */
     app.get('/api/surveys/:surveyId/:choice', (req, res) => {
         res.send('Thanks for voting !!!');
     });
 
+    /**
+     * @description api to get the data from the webhook (sendgrid) and update the Survey with the response
+     */
     app.post('/api/surveys/webhooks', (req, res) => {
         const p = new Path('/api/surveys/:surveyId/:choice');
         try {
@@ -62,7 +93,10 @@ module.exports = (app) => {
         }
     });
 
-    app.post('/api/surveys', requireLogin, requireCredits, (req, res) => {
+    /**
+     * @description api to save and send the survey to the recipients
+     */
+    app.post('/api/saveSurvey', requireLogin, (req, res) => {
         const {title, subject, body, recipients} = req.body;
 
         const survey = new Survey({
@@ -74,7 +108,15 @@ module.exports = (app) => {
             dateSent: Date.now()
         });
 
+        res.send(req.user);
+    });
+
+    /**
+     * @description api to send the survey
+     */
+    app.post('/api/sendSurveys', requireLogin, requireCredits, (req, res) => {
         //Great place to send mails
+        const survey = {};
         const mailer = new Mailer(survey, surveyTemplate(survey));
         try {
             mailer.send().then(() => {

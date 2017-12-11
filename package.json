@@ -1,13 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Fullstack application using MERN Stack",
   "main": "index.js",
   "engines": {
     "node": "6.11.5",
     "npm": "3.10.10"
   },
   "scripts": {
+    "test": "mocha || true",
     "start": "node index.js",
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
@@ -34,6 +35,8 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "forever": "^0.15.3"
+    "chai": "^4.1.2",
+    "forever": "^0.15.3",
+    "mocha": "^4.0.1"
   }
 }

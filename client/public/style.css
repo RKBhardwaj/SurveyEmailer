@@ -1,0 +1,26 @@
+body {
+    background: #f1f1f1;
+}
+
+.container {
+    background: #ffffff;
+    padding:5px;
+}
+
+.createNewBtn {
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+.deleteBtn {
+    cursor: pointer;
+}
+.btnBox {
+    display:flex;
+    justify-content: space-between;
+}
+
+.swal2-popup .swal2-buttonswrapper {
+    justify-content: space-around !important;
+}

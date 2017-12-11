@@ -16,6 +16,10 @@
     1. Concurrently - As we have two server, first running on node (express) and second server is used for React Front end. We use Concurrenlty node package to run both the server concurrently.
     1. Body Parser - Body parser module is used to parse the incoming request to json object in the server.
     1. Send grid - send grid is the mail provider
+    1. local Tunnel - Local tunnel is used for development purpose only to get the data from the remote server to the local testing machine.
+    1. Stripe - Stripe is a node module to use stripe api at client side and handle its function at the backend.
+    1. Path Parser - Path parser is a node module which is used to parse the route. It return an object with the required keys from the url using the test method.
+    
     
 2. Frontend
     2. axios - For handing ajax request on the front end side.
