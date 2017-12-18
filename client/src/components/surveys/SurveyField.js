@@ -2,7 +2,12 @@
 
 import React from 'react';
 
-export default ({input, label, meta: {error, touched}}) => {
+export default (props) => {
+    let {input, label, meta} = props;
+    let {touched, error} = meta;
+    if (props.value) {
+        input.value = props.value || '';
+    }
     return (
         <div>
             <label>{label}</label>

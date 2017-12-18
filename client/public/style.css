@@ -2,9 +2,29 @@ body {
     background: #f1f1f1;
 }
 
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
 .container {
     background: #ffffff;
     padding:5px;
+    box-shadow: 0 0 10px 2px #cccccc;
+    -webkit-box-shadow: 0 0 10px 2px #cccccc;
+    -moz-box-shadow: 0 0 10px 2px #cccccc;
+    -o-box-shadow: 0 0 10px 2px #cccccc;
+}
+
+.Survey-form-container {
+    padding: 10px 10px 50px 10px;
+}
+
+.survey-field {
+    padding: 10px 10px 10px 10px;
 }
 
 .createNewBtn {
@@ -21,6 +41,56 @@ body {
     justify-content: space-between;
 }
 
+.btnGroup {
+    padding-top: 10px;
+}
+
 .swal2-popup .swal2-buttonswrapper {
     justify-content: space-around !important;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.btn-danger:hover {
+    color: #fff;
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9 !important;
+    border-color: #0062cc !important;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.preloader-wrapper {
+    position: relative !important;
+    left: 45% !important;
 }

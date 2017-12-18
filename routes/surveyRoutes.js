@@ -31,19 +31,19 @@ module.exports = (app) => {
     app.post('/api/deleteSurvey', requireLogin, (req, res) => {
         const surveyId = req.body.surveyId;
         if (surveyId) {
-            Survey.deleteOne({_id: surveyId}).then((response) => {
-                Survey.find({_user: req.user.id})
-                    .select({recipients: false})
-                    .then((surveys) => {
-                        res.send(surveys);
-                    });
-            });
-        } else {
-            Survey.find({_user: req.user.id})
-                .select({recipients: false})
-                .then((surveys) => {
-                    res.send(surveys);
+            try {
+                Survey.deleteOne({_id: surveyId}).then((response) => {
+                    Survey.find({_user: req.user.id})
+                        .select({recipients: false})
+                        .then((surveys) => {
+                            res.send(surveys);
+                        });
                 });
+            } catch (err) {
+                res.send([]);
+            }
+        } else {
+            res.send([]);
         }
     });
 
@@ -94,21 +94,63 @@ module.exports = (app) => {
     });
 
     /**
-     * @description api to save and send the survey to the recipients
+     * @description api to save the survey to the recipients
      */
     app.post('/api/saveSurvey', requireLogin, (req, res) => {
         const {title, subject, body, recipients} = req.body;
 
-        const survey = new Survey({
-            title,
-            subject,
-            body,
-            recipients: recipients.split(',').map((email) => ({email: email.trim()})),
-            _user: req.user.id,
-            dateSent: Date.now()
-        });
+        try {
+            const survey = new Survey({
+                title,
+                subject,
+                body,
+                recipients: recipients.split(',').map((email) => ({email: email.trim()})),
+                _user: req.user.id
+            });
 
-        res.send(req.user);
+            survey.save().then((resp) => {
+                res.send(req.user);
+            });
+        } catch (err) {
+            res.send(req.user);
+        }
+    });
+
+    /**
+     * @description api to update the survey to the recipients
+     */
+    app.post('/api/updateSurvey', requireLogin, (req, res) => {
+        const {title, subject, body, recipients, surveyId} = req.body;
+
+        try {
+
+            Survey.findOne({_id: surveyId}).then((survey) => {
+                survey.title = title;
+                survey.subject = subject;
+                survey.body = body;
+                survey.recipients = recipients.split(',').map((email) => ({email: email.trim()}));
+
+                survey.save().then((resp) => {
+                    res.send(req.user);
+                });
+            });
+        } catch (err) {
+            res.send(req.user);
+        }
+    });
+
+    /**
+     * @description api to get details fo the survey
+     */
+    app.post('/api/getSurveyDetails', requireLogin, (req, res) => {
+        const surveyId = req.body.surveyId;
+        try {
+            Survey.findOne({_id: surveyId}).then((survey) => {
+                res.send(survey);
+            });
+        } catch (err) {
+            res.send([]);
+        }
     });
 
     /**
@@ -116,14 +158,17 @@ module.exports = (app) => {
      */
     app.post('/api/sendSurveys', requireLogin, requireCredits, (req, res) => {
         //Great place to send mails
-        const survey = {};
-        const mailer = new Mailer(survey, surveyTemplate(survey));
+        const surveyId = req.body.surveyId;
         try {
-            mailer.send().then(() => {
-                survey.save().then(() => {
-                    req.user.credits -= 1;
-                    req.user.save().then((user) => {
-                        res.send(user);
+            Survey.findOne({_id: surveyId}).then((survey) => {
+                const mailer = new Mailer(survey, surveyTemplate(survey));
+                mailer.send().then(() => {
+                    survey.dateSent = Date.now();
+                    survey.save().then(() => {
+                        req.user.credits -= 1;
+                        req.user.save().then((user) => {
+                            res.send(user);
+                        });
                     });
                 });
             });

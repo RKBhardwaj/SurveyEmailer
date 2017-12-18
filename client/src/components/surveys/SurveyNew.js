@@ -2,31 +2,33 @@
  * @description SurveyNew will show SurveyForm and SurveyReviewForm
  */
 import React, {Component} from 'react';
-import {reduxForm} from 'redux-form';
+import {connect} from 'react-redux';
 import SurveyForm from './SurveyForm';
-import SurveyFormReview from './SurveyFormReview';
+import * as actions from '../../actions';
+import {withRouter} from 'react-router-dom';
 
 class SurveyNew extends Component {
-    //Using a component level state
-    state = {showFormReview: false};
-
-    renderContent() {
-        if (this.state.showFormReview) {
-            return <SurveyFormReview onCancel={() => this.setState({showFormReview: false})}/>;
+    saveSurvey() {
+        let formValues = {};
+        if (this.props.state.form.surveyForm.values) {
+            formValues = this.props.state.form.surveyForm.values;
         }
-
-        return <SurveyForm onSurveySubmit={() => this.setState({showFormReview: true})}/>;
+        this.props.saveSurvey(formValues, this.props.history);
     }
 
     render() {
         return (
             <div>
-                {this.renderContent()}
+                <SurveyForm onSurveySubmit={() => this.saveSurvey()}/>
             </div>
         );
     }
 }
 
-export default reduxForm({
-    form: 'surveyForm'
-})(SurveyNew);
+function mapStateToProps(state) {
+    return {
+        state
+    }
+}
+
+export default connect(mapStateToProps, actions)(withRouter(SurveyNew));

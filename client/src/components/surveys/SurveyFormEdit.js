@@ -1,18 +1,19 @@
-/**
- * @description SurveyForm shows a form for a user to add input
- */
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form';
 import SurveyField from './SurveyField';
+import formFields from './formFields';
 import {Link} from 'react-router-dom';
 import validateEmails from '../../utils/validateEmails';
-import formFields from './formFields';
 
-class SurveyForm extends Component {
+class SurveyFormEdit extends Component {
     renderFields() {
         return _.map(formFields, ({label, name}) => {
-            return <Field key={name} component={SurveyField} type="text" label={label} name={name}/>
+            return <Field key={name}
+                          component={SurveyField}
+                          type="text"
+                          label={label}
+                          name={name}/>
         });
     }
 
@@ -26,7 +27,7 @@ class SurveyForm extends Component {
                             Cancel
                         </Link>
                         <button type="submit" className="btn btn-success right white-text">
-                            Save
+                            Update
                             <i className="material-icons right">done</i>
                         </button>
                     </div>
@@ -56,6 +57,5 @@ function validate(values) {
 
 export default reduxForm({
     validate,
-    form: 'surveyForm',
-    destroyOnUnmount: false
-})(SurveyForm);
+    form: 'surveyFormEdit',
+})(SurveyFormEdit);

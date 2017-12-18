@@ -4,24 +4,33 @@ import {Link} from 'react-router-dom';
 import {fetchSurveys, deleteSurvey} from "../../actions";
 
 class SurveyList extends Component {
-    componentDidMount() {
+    componentWillMount() {
         this.props.fetchSurveys();
     }
 
     renderSurveys() {
-        return this.props.surveys.reverse().map((survey) => {
+        return this.props.surveys.map((survey) => {
             return (
                 <div key={survey._id} className="card blue-grey darken-1">
                     <div className="card-content white-text">
-                        <span className="card-title">{survey.title}</span>
-                        <span className="right">
-                            <i className="material-icons">create</i>
+                        <span className="card-title">
+                            {survey.title}
+                            <Link to={{pathname: "/survey/view/" + survey._id, params: survey._id }}>
+                                <i className="material-icons right cursor-pointer" title="View Survey">
+                                    visibility
+                                </i>
+                            </Link>
+                            <Link to={{pathname: "/survey/edit/" + survey._id, params: survey._id }}>
+                                <i className="material-icons right cursor-pointer" title="Edit Survey">
+                                    create
+                                </i>
+                            </Link>
                         </span>
                         <p>
                             {survey.body}
                         </p>
                         <p className="right">
-                            Sent on: {new Date(survey.dateSent).toLocaleDateString()}
+                            {survey.dateSent ? 'Sent on: ' + new Date(survey.dateSent).toLocaleDateString() : 'Not Send Yet'}
                         </p>
                     </div>
                     <div className="card-action btnBox">
@@ -40,7 +49,7 @@ class SurveyList extends Component {
         });
     }
 
-    render(surveys) {
+    render() {
         return (
             <div>
                 <div className="createNewBtn">

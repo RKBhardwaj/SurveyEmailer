@@ -9,6 +9,8 @@ import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
 import SurveyNew from './surveys/SurveyNew';
+import SurveyView from './surveys/SurveyView';
+import SurveyFormReview from './surveys/SurveyFormReview';
 
 class App extends Component {
     componentDidMount() {
@@ -24,6 +26,8 @@ class App extends Component {
                         <Route exact path="/" component={Landing} />
                         <Route exact path="/surveys" component={Dashboard} />
                         <Route exact path="/Surveys/new" component={SurveyNew} />
+                        <Route path="/Survey/edit" component={SurveyView} />
+                        <Route path="/Survey/view/" component={SurveyFormReview} />
                     </div>
                 </BrowserRouter>
             </div>
