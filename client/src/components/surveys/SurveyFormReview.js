@@ -112,19 +112,19 @@ class SurveyFormReview extends Component{
                     </div> : ''
                 }
                 <div className="btnGroup">
-                    <Link to="/surveys" className="red btn-flat left white-text">
+                    <Link to="/surveys" className="btn btn-danger white-text">
                         Cancel
                     </Link>
                     {
                         this.props.survey.length > 0 ?
                             <button
                                 onClick={() => this.sendSurvey()}
-                                className="green white-text btn-flat right">
+                                className="btn btn-success white-text">
                                 Send Survey
                                 <i className="material-icons right">email</i>
                             </button>
                             :
-                            <button className="green white-text btn-flat right"
+                            <button className="btn btn-success white-text"
                                     onClick={() => this.setState({showResponse: !this.state.showResponse})}>
                                 {!this.state.showResponse ? 'Show Response' : 'Hide Response'}
                                 <i className="material-icons right cursor-pointer right">

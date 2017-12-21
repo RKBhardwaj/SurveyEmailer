@@ -16,8 +16,8 @@ class Header extends Component {
             default:
                 return [
                     <li key="1"><Payments/></li>,
-                    <li key="3" style={{margin: '0 10px'}}>
-                        Credits: {this.props.auth.credits}
+                    <li key="3" className="credit-score" >
+                        <a href="">Credits: {this.props.auth.credits}</a>
                     </li>,
                     <li key="2"><a href="/api/logout">Logout</a></li>
                 ];
@@ -33,7 +33,13 @@ class Header extends Component {
                           to={this.props.auth ? '/surveys' : '/'}>
                         Emaily
                     </Link>
-                    <ul className="right">
+                    <a href="/#" data-activates="mobile-demo" className="button-collapse">
+                        <i className="material-icons">menu</i>
+                    </a>
+                    <ul className="right hide-on-med-and-down">
+                        {this.renderContent()}
+                    </ul>
+                    <ul className="side-nav" id="mobile-demo">
                         {this.renderContent()}
                     </ul>
                 </div>

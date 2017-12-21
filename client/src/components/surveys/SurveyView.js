@@ -15,8 +15,8 @@ class SurveyNew extends Component {
         this.props.getSurveyDetails(this.props.location.params);
     }
 
-    updateSurvey(surveyId) {
-        let formValues = this.props.state.form.SurveyFormEdit.values || {};
+    updateSurvey() {
+        let formValues = this.props.state.form.surveyFormEdit.values || {};
         formValues.surveyId = this.props.location.params;
         this.props.updateSurvey(formValues, this.props.history);
     }

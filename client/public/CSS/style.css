@@ -43,6 +43,8 @@ a:hover {
 
 .btnGroup {
     padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .swal2-popup .swal2-buttonswrapper {
@@ -93,4 +95,19 @@ a:hover {
 .preloader-wrapper {
     position: relative !important;
     left: 45% !important;
+}
+
+.credit-score {
+    margin: 0 10px;
+}
+
+@media only screen and (max-width: 992px) {
+    nav .brand-logo.left {
+        left: 3.5rem !important;
+    }
+
+    .credit-score {
+        color: #333333;
+        margin:0;
+    }
 }
